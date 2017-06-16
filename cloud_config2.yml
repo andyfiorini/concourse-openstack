@@ -1,0 +1,40 @@
+azs:
+- name: z1
+  cloud_properties:
+    availability_zone: nova
+
+vm_types:
+- name: default
+  cloud_properties:
+    instance_type: m1.small
+- name: medium
+  cloud_properties:
+    instance_type: m1.medium
+
+disk_types:
+- name: default
+  disk_size: 3000
+- name: large
+  disk_size: 10_000
+
+networks:
+- name: default
+  type: manual
+  subnets:
+  - range: x.x.x.x/24
+    gateway: x.x.x.x
+    reserved:
+    - x.x.x.x - x.x.x.x
+    az: z1
+    dns: [8.8.8.8]
+    cloud_properties:
+      net_id: xxxxxxx-xxxxx-xxxxx-xxxxx
+- name: vip
+  type: vip
+
+compilation:
+  workers: 5
+  reuse_compilation_vms: true
+  az: z1
+  vm_type: medium
+  network: default
